@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <!-- bootstrapt -->
+    <link rel="stylesheet" href="/PHP/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <script src="/PHP/bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Heart of snow -->
+    <link rel="stylesheet" href="/css/Heart of snow.css">
+    <script src="/js/Heart of snow.js"></script>
+    <link rel="stylesheet" href="/css/Snowfall movement.css">
+    <script src="/js/Snowfall movement.js"></script>
+
+    <title>AnimeVerse - Your Anime Universe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a55eea;
+            --background-dark: #1e272e;
+            --text-light: #ffffff;
+            --text-dark: #2d3436;
+        }
+
+        body {
+            background-color: black;
+        }
+
+        /* Navigation Styles */
+        nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1500px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+
+        }
+
+        #parallelogram {
+            padding: 15px;
+            height: 65px;
+            display: inline-block;
+            background: white;
+            transform: skewX(-30deg);
+            width: 700px;
+        }
+
+        #text {
+            transform: initial;
+            color: green;
+            transform: skewX(30deg);
+        }
+        #b a{
+            margin-left: 15px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 60px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        /* Anime Grid */
+        .anime-grid {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .anime-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .anime-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .anime-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .anime-info {
+            padding: 1.5rem;
+        }
+
+        .anime-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .anime-info p {
+            font-size: 0.9rem;
+            color: #dfe6e9;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .rating span {
+            color: #ffd700;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav style="background-color: none;">
+        <div class="nav-container" ​​​​​>
+            <div class="logo" id="parallelogram">
+                <div class="" id="text">AnimeVerse</div>
+            </div>
+            <div class="nav-links" id="a" style=" 
+                padding: 21px;
+                display: inline-block;
+                background: green;
+                transform: skewX(-30deg);
+                width: 800px;
+                height: 65px;
+
+                ">
+                <div class="" id="b" style=" transform: initial;
+                     color: white;
+                     transform: skewX(30deg);
+                     padding-left: 400px;
+                     font-weight: bold;
+                    ">
+                    <a href="#home">Home</a>
+                    <a href="#trending">Trending</a>
+                    <a href="#genres">Genres</a>
+                    <a href="#community">Community</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home" style=" background: linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 1) 0%,
+        rgba(255, 154, 0, 1) 10%,
+        rgba(208, 222, 33, 1) 20%,
+        rgba(79, 220, 74, 1) 30%,
+        rgba(63, 218, 216, 1) 40%,
+        rgba(47, 201, 226, 1) 50%,
+        rgba(28, 127, 238, 1) 60%,
+        rgba(95, 21, 242, 1) 70%,
+        rgba(186, 12, 248, 1) 80%,
+        rgba(251, 7, 217, 1) 90%,
+        rgba(255, 0, 0, 1) 100%
+    );">
+
+
+
+        <!-- Carousel -->
+        <div id="demo" class="carousel slide" data-bs-rid="carousel">
+
+            <!-- Indicators/dots -->
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="0"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="2" class="active"></button>
+            </div>
+
+            <!-- The slideshow/carousel -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://assets-prd.ignimgs.com/2022/08/17/top25animecharacters-blogroll-1660777571580.jpg" alt="Los Angeles" class="d-block" style="width:1500px;height: 700px;">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/200/379/762/kekkai-sensen-anime-anime-boys-blue-wallpaper-thumb.jpg" alt="Chicago" class="d-block" style="width:1500px; height: 700px;">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa_Q2QrPk9m3FGsMsnB1Af7zipqoghspoDkQ&s" alt="New York" class="d-block active"
+                        style="width:1500px;height: 700px;">
+                </div>
+            </div>
+
+            <!-- Left and right controls/icons -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev"
+                style="background-color: rgb(44, 43, 43);">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next"
+                style="background-color: rgb(44, 43, 43);">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+
+
+
+        <div class="hero-content" style="position: absolute;">
+            <h1 style="color:green; font-weight: bold;">Welcome to AnimeVerse</h1>
+            <p style="color: white;">Discover the best anime series and movies all in one place</p>
+        </div>
+
+
+
+    </section>
+
+    <!-- Search Section -->
+    <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search for anime..." id="searchInput" style="background-color:white ;color: black;">
+    </div>
+
+    <!-- Anime Grid -->
+    <div class="anime-grid" id="animeGrid" style=" background: linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 1) 0%,
+        rgba(255, 154, 0, 1) 10%,
+        rgba(208, 222, 33, 1) 20%,
+        rgba(79, 220, 74, 1) 30%,
+        rgba(63, 218, 216, 1) 40%,
+        rgba(47, 201, 226, 1) 50%,
+        rgba(28, 127, 238, 1) 60%,
+        rgba(95, 21, 242, 1) 70%,
+        rgba(186, 12, 248, 1) 80%,
+        rgba(251, 7, 217, 1) 90%,
+        rgba(255, 0, 0, 1) 100%
+    );">
+        <!-- Anime cards will be inserted here by JavaScript -->
+    </div>
+    <!-- footer -->
+    <!-- Footer Section -->
+    <footer style="background: linear-gradient(to right, #1a1a1a, #2d3436); padding-top: 50px; margin-top: 50px;">
+        <div class="container">
+            <div class="row">
+                <!-- About Section -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="text-white mb-4">About AnimeVerse</h5>
+                    <p class="text-light">Your ultimate destination for anime entertainment. Discover the latest series,
+                        movies, and join our growing community of anime enthusiasts.</p>
+                    <div class="social-links mt-4">
+                        <a href="#" class="btn btn-outline-light btn-sm me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm me-2"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="text-white mb-4">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none">Popular Anime</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none">New Releases</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none">Upcoming Shows</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none">Genre List</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none">Schedule</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="text-white mb-4">Contact Us</h5>
+                    <div class="contact-info">
+                        <p class="text-light mb-2">
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            123 Anime Street, Tokyo, Japan
+                        </p>
+                        <p class="text-light mb-2">
+                            <i class="fas fa-phone me-2"></i>
+                            +81 123-456-789
+                        </p>
+                        <p class="text-light mb-2">
+                            <i class="fas fa-envelope me-2"></i>
+                            contact@animeverse.com
+                        </p>
+                        <p class="text-light mb-2">
+                            <i class="fas fa-clock me-2"></i>
+                            24/7 Customer Support
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Map Section -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="text-white mb-4">Find Us</h5>
+                    <div class="map-container" style="height: 200px; border-radius: 10px; overflow: hidden;">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.7479754723656!2d139.7432442!3d35.6585805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b835942e165%3A0xb4897f1f4264c771!2zSmFwYW4sIOOAkjEwNi0wMDMyIFRva3lvLCBNaW5hdG8gQ2l0eSwgUm9wcG9uZ2ksIDYtY2jFjW1l4oiSMQ!5e0!3m2!1sen!2sus!4v1644273456789!5m2!1sen!2sus"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter Section -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="newsletter-container p-4"
+                        style="background: rgba(255, 255, 255, 0.05); border-radius: 10px;">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h5 class="text-white mb-0">Subscribe to Our Newsletter</h5>
+                                <p class="text-light mb-0">Stay updated with the latest anime releases and news!</p>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="email" class="form-control" placeholder="Enter your email">
+                                    <button class="btn btn-primary">Subscribe</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <hr class="bg-light">
+                    <div class="text-center text-light py-3">
+                        <p class="mb-0">© 2025 AnimeVerse. All rights reserved. |
+                            <a href="#" class="text-light">Privacy Policy</a> |
+                            <a href="#" class="text-light">Terms of Service</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+    <script>
+        // Sample anime data
+        const animeData = [
+            {
+                title: "Demon Slayer",
+                description: "A young man fights demons to save his sister and humanity.",
+                image: "data:image/jpeg;base64,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",
+                rating: 4.8,
+
+            },
+            {
+                title: "Attack on Titan",
+                description: "Humanity fights for survival against giant humanoid Titans.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrdQe6iK_n-2JzxxfsRjR_vTxHNXReZm5eaPIl_w8XToomT-OSWPK_oSm8dRA3SbY58k&usqp=CAU",
+                rating: 4.9
+            },
+            {
+                title: "My Hero Academia",
+                description: "A quirkless boy dreams of becoming the greatest hero.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAZWp1jarcc5_RTEWDOokKIV9tn4dxDS_FbqVcpWMd63GS31TvfnSkKjqOKDfssQ_7Pio&usqp=CAU",
+                rating: 4.7,
+            },
+            {
+                title: "One Piece",
+                description: "Pirates search for the ultimate treasure, the One Piece.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8lk9sykCpRwrROVmazaHCldZaBK-1gIgIvQ&s",
+                rating: 4.9
+            },
+            {
+                title: "Jujutsu Kaisen",
+                description: "A student joins a school for sorcerers to fight curses.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCYs2loUFxkGPm0Cf5HKrWTTrnpqrKYeiMAA&s",
+                rating: 4.8
+            },
+            {
+                title: "Naruto",
+                description: "A young ninja seeks recognition and dreams of becoming the Hokage.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEvLQO8LoeF5Kw1OwvkYxsWRWWNiV3BQssnSAVb5PV8b0TAiM4r8muRxZpruW3XkQzrC4&usqp=CAU",
+                rating: 4.7
+            },
+            {
+                title: "Naruto",
+                description: "A young ninja seeks recognition and dreams of becoming the Hokage.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3przJw0o7Q2uJHjzr1tb1u5bol40xIPdq0-aGTIffnfElgfhSJt04Tu1MGYNX6P69sPE&usqp=CAU",
+                rating: 4.7
+            },
+            {
+                title: "Naruto",
+                description: "A young ninja seeks recognition and dreams of becoming the Hokage.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNBSwvhLdIoDYuVlQi97Hyyt9YK1cs6LHbMA&s",
+                rating: 4.7
+            }
+
+        ];
+
+        // Function to create anime cards
+        function createAnimeCard(anime) {
+            return `
+                <div class="anime-card">
+                    <img src="${anime.image}" alt="${anime.title}">
+                    <div class="anime-info">
+                        <h3>${anime.title}</h3>
+                        <p>${anime.description}</p>
+                        <div class="rating">
+                            <span>★</span>
+                            <span>${anime.rating}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to render anime grid
+        function renderAnimeGrid(animes) {
+            const grid = document.getElementById('animeGrid');
+            grid.innerHTML = animes.map(anime => createAnimeCard(anime)).join('');
+        }
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredAnime = animeData.filter(anime =>
+                anime.title.toLowerCase().includes(searchTerm) ||
+                anime.description.toLowerCase().includes(searchTerm)
+            );
+            renderAnimeGrid(filteredAnime);
+        });
+
+        // Initial render
+        renderAnimeGrid(animeData);
+
+        // Scroll animation for navbar
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.backgroundColor = 'rgba(30, 39, 46, 0.98)';
+            } else {
+                nav.style.backgroundColor = 'rgba(30, 39, 46, 0.95)';
+            }
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
